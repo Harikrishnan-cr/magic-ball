@@ -1,9 +1,15 @@
 
 
 
-import 'dart:math';
+
+
+
+
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:magic_ball/controler/magic_provider/magic_logic.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -13,32 +19,29 @@ Color secondcolour = const Color.fromARGB(255, 216, 215, 215);
 double screenHeight =0;
 double screenWidth = 0;
 
-class MagicFunctions extends StatefulWidget {
-  const MagicFunctions({Key? key}) : super(key: key);
+class MagicFunctions extends StatelessWidget {
+  MagicFunctions({Key? key}) : super(key: key);
 
-  @override
-  State<MagicFunctions> createState() => _MagicFunctionsState();
-}
-
-class _MagicFunctionsState extends State<MagicFunctions> {
-  var imgNum= 7;
+var imgNum;
 
 
-  void resetApp(){
-    setState(() {
-      imgNum = 7;
-    });
-  }
+  // void resetApp(){
+  //   // setState(() {
+  //   //   imgNum = 7;
+  //   // });
+  // }
 
-   void changeImgOnTap (){
-    setState(() {
-      imgNum = Random().nextInt(7);
-    });
-  }
+  //  void changeImgOnTap (){
+  //   // setState(() {
+  //   //   imgNum = Random().nextInt(7);
+  //   // });
+  // }
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<MagicCounterclass>(context,listen: false);
      screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
+    log('loged ');
     return Scaffold(
 
        appBar: AppBar(
@@ -49,7 +52,8 @@ class _MagicFunctionsState extends State<MagicFunctions> {
         centerTitle: true,
         actions: [
           IconButton(onPressed: (){
-            resetApp();
+            // resetApp();
+          provider.resetApp();
           }, icon: const Icon(Icons.refresh_outlined))
         ],
       ),
@@ -57,10 +61,16 @@ class _MagicFunctionsState extends State<MagicFunctions> {
         child: GestureDetector(
           onTap: () {
             
-             changeImgOnTap();
+           provider.changeCountValue(); 
+               
           },
-          child: Image.asset('assets/images/ball$imgNum.png',
+          // child: Text(imgNum.toString()),      
+          child: Consumer<MagicCounterclass>(
+            builder: (BuildContext, data, _) {
+              return Image.asset('assets/images/ball${data.magicCount}.png',      
         width: screenHeight*0.47,
+              );
+            }
           ),
         ),
       ),

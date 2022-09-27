@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:magic_ball/controler/magic_provider/magic_logic.dart';
 
-import 'package:magic_ball/magic_functions.dart';
+import 'package:magic_ball/view/screen/magic_functions.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +15,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        canvasColor: secondcolour
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<MagicCounterclass>(create: (_) => MagicCounterclass(), )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          canvasColor: secondcolour
+        ),
+        home: MagicFunctions(),
       ),
-      home: const MagicFunctions(),
     );
   }
 }
