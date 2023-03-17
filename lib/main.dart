@@ -30,3 +30,123 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+
+
+
+
+class CustomChoiceChip extends StatefulWidget {
+  final List<String> options;
+  final ValueChanged<String> onChanged;
+  final String initialValue;
+
+  const CustomChoiceChip({
+    Key? key,
+    required this.options,
+    required this.onChanged,
+    this.initialValue = '',
+  }) : super(key: key);
+
+  @override
+  _CustomChoiceChipState createState() => _CustomChoiceChipState();
+}
+
+class _CustomChoiceChipState extends State<CustomChoiceChip> {
+  late String _selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedOption = widget.initialValue;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Wrap(
+        spacing: 8.0,
+        children: widget.options
+            .map(
+              (option) => Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: _selectedOption == option
+                      ? Colors.blue
+                      : Colors.grey[300],
+                ),
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      _selectedOption = option;
+                    });
+                    widget.onChanged(option);
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 12.0,
+                      vertical: 8.0,
+                    ),
+                    child: Text(
+                      option,
+                      style: TextStyle(
+                        color: _selectedOption == option
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
+}
+
+
+
+
+
+class Sssssssssss extends StatefulWidget {
+  @override
+  _SssssssssssState createState() => _SssssssssssState();
+}
+
+class _SssssssssssState extends State<Sssssssssss> {
+  late String _selectedOption;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedOption = '';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Custom Choice Chip Demo'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomChoiceChip(
+              options: ['Option 1', 'Option 2', 'Option 3'],
+              initialValue: _selectedOption,
+              onChanged: (value) {
+                setState(() {
+                  _selectedOption = value;
+                });
+              },
+            ),
+            SizedBox(height: 16.0),
+            Text('Selected Option: $_selectedOption'),
+          ],
+        ),
+      ),
+    );
+  }
+}
