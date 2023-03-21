@@ -106,7 +106,36 @@ class _CustomChoiceChipState extends State<CustomChoiceChip> {
 }
 
 
+class SwiperWidget extends StatelessWidget {
+  const SwiperWidget({
+    Key? key,
+    required this.swiperHeight,
+  }) : super(key: key);
 
+  final double swiperHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: swiperHeight,
+      child: Swiper(
+        itemBuilder: (BuildContext context, int index) {
+          return Image.asset(
+            offerImages(index + 1),
+            fit: BoxFit.fill,
+          );
+        },
+        autoplay: true,
+        pagination: const SwiperPagination(
+            margin: EdgeInsets.all(2), builder: SwiperPagination.dots),
+        itemCount: 3,
+        itemWidth: 300.0,
+        itemHeight: 400.0,
+      ),
+    );
+  }
+}
 
 
 class Sssssssssss extends StatefulWidget {
