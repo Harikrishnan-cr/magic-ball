@@ -104,7 +104,7 @@ class _CustomChoiceChipState extends State<CustomChoiceChip> {
     );
   }
 }
-
+card_swiper: ^2.0.4
 
 class SwiperWidget extends StatelessWidget {
   const SwiperWidget({
